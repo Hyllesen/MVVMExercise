@@ -1,0 +1,45 @@
+﻿<Window x:Class="Exercise.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:exercise="clr-namespace:Exercise"
+        xmlns:components="clr-namespace:Exercise.Components;assembly=Exercise.Components"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.DataContext>
+        <exercise:MainViewModel></exercise:MainViewModel>
+    </Window.DataContext>
+    <Window.Resources>
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type exercise:SquareViewModel}">
+                <Rectangle Width="50" Height="50" Fill="Green"></Rectangle>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type exercise:CircleViewModel}">
+                <Ellipse Width="50" Height="50" Fill="blue"></Ellipse>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Window.Resources>
+    <DockPanel>
+        <ToolBar DockPanel.Dock="Top" >
+            <Button  Command="{Binding BtnSquareCommand}">square</Button>
+            <Button  Command="{Binding BtnCircleCommand}">Circle</Button>
+            <StackPanel Orientation="Horizontal">
+            <TextBlock Text="X:"></TextBlock>
+                <TextBlock Width="30" Text="{Binding Y}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Y:"></TextBlock>
+                <TextBlock Width="30" Text="{Binding Y}"></TextBlock>
+            </StackPanel>
+        </ToolBar>
+        <Canvas DockPanel.Dock="Bottom">
+            <ContentPresenter Content="{Binding Content}" OpacityMask="Black"   >
+                <i:Interaction.Behaviors>
+                    <components:DragBehavior></components:DragBehavior>
+                </i:Interaction.Behaviors>
+            </ContentPresenter>
+        </Canvas>
+    </DockPanel>
+</Window>
